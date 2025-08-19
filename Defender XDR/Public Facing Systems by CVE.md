@@ -1,3 +1,4 @@
+```KQL
 // The intention of this query is to be able to search MDE vulnerbility data for public facing systems, vulnerable to a specific CVE.
 DeviceInfo
 | where IsInternetFacing == "True"
@@ -8,4 +9,4 @@ DeviceInfo
 | extend InternetFacingReason = tostring(parsedFields.InternetFacingReason)
 | extend IsInternetFacing = iif(true, "yes", "no")
 | project Timestamp, DeviceName, PublicIP, IsInternetFacing, InternetFacingReason, OSPlatform, CveId
-
+```
