@@ -1,0 +1,6 @@
+```KQL
+let domains = dynamic(["nomachine.com", "test.xyz"]);
+DeviceNetworkEvents
+| extend Query = iif(ActionType == "DnsConnectionInspected", tostring(parse_json(AdditionalFields).query), "")
+| where RemoteUrl has_any (domains) or Query has_any (domains)
+```
