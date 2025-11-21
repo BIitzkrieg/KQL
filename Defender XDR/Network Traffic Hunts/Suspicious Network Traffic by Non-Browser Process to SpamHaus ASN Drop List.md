@@ -18,21 +18,21 @@ DeviceNetworkEvents
 | evaluate ipv4_lookup(CIDRSOfInterest,RemoteIP,CIDR,return_unmatched=false) 
 | extend IsMaliciousASN=true   
 | lookup ASNDropRaw on $left.ASN == $right.asn  
-| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessId, RemoteIP, ASN, CIDR, asname, domain, cc, rir, IsMaliciousASN
+| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessId, InitiatingProcessMD5, RemoteIP, ASN, CIDR, asname, domain, cc, rir, IsMaliciousASN
 | join kind=leftouter (
     DeviceProcessEvents
     | project 
         DeviceName,
         InitiatingProcessFileName = FileName,
         InitiatingProcessId,
-        InitiatingProcessMD5Hash = InitiatingProcessMD5
-) on DeviceName, InitiatingProcessFileName, InitiatingProcessId
+        InitiatingProcessMD5
+) on DeviceName, InitiatingProcessFileName, InitiatingProcessId, InitiatingProcessMD5
 | project 
     Timestamp,
     DeviceName,
     InitiatingProcessFileName,
     InitiatingProcessId,
-    InitiatingProcessMD5Hash,
+    InitiatingProcessMD5,
     RemoteIP,
     ASN,
     CIDR,
