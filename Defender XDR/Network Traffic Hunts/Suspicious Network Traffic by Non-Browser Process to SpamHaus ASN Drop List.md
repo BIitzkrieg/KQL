@@ -1,3 +1,4 @@
+``` KQL
 let CIDRASN = externaldata (CIDR: string, CIDRASN:int, CIDRASNName:string, CIDRSource:string)
 [@"https://firewalliplists.gypthecat.com/lists/kusto/kusto-cidr-asn.csv.zip"]
 with(ignoreFirstRecord=true);
@@ -40,3 +41,4 @@ DeviceNetworkEvents
     cc,
     rir,
     IsMaliciousASN
+```
